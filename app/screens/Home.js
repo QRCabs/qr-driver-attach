@@ -20,7 +20,7 @@ function Home({ children, style, navigation }) {
       {children}
       <View style={{ flex: 1, backgroundColor: "lightblue" }}>
         <View style={{ flex: 0.6, backgroundColor: "white", justifyContent: "center", alignItems: "center" }}>
-          <Image source={require("../../assets/logos/cabsLogo.png")} />
+          <Image source={require("../../assets/qrcabs-logo.png")} style={{ height: 100, width: 300 }} />
         </View>
 
         <View style={{ flex: 1, backgroundColor: "white" }}>

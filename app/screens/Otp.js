@@ -5,6 +5,7 @@ import firebase from "firebase/compat/app";
 import { firebaseConfig } from "../../config";
 import OtpReq from "./OtpReq";
 import OtpVerify from "./OtpVerify";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Otp({ children, style, navigation }) {
   const [phone, setPhone] = useState("");
@@ -33,10 +34,13 @@ function Otp({ children, style, navigation }) {
     firebase
       .auth()
       .signInWithCredential(credential)
-      .then(() => {
+      .then((res) => {
+        console.log(res.user.uid);
+        AsyncStorage.setItem("uuid", res.user.uid);
+        AsyncStorage.setItem("phone_no", `+91${phone}`);
         setCode("");
         setPhone("");
-        Alert.alert("Login Succesfull");
+        Alert.alert("Succesfull", "You Have loggedIn Succesfully!", navigation.navigate("regfirst"));
       })
       .catch((err) => {
         console.err(err);

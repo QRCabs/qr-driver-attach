@@ -12,9 +12,11 @@
     "@expo/config-plugins": "~6.0.0",
     "@expo/vector-icons": "^13.0.0",
     "@react-native-async-storage/async-storage": "1.17.11",
+    "@react-native-community/datetimepicker": "6.7.3",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "@react-navigation/stack": "^6.3.17",
+    "axios": "^1.4.0",
     "expo": "~48.0.18",
     "expo-checkbox": "~2.3.1",
     "expo-firebase-core": "^6.0.0",
@@ -24,7 +26,10 @@
     "firebase": "^10.1.0",
     "react": "18.2.0",
     "react-native": "0.71.8",
+    "react-native-dotenv": "^3.4.9",
     "react-native-paper": "^5.9.1",
+    "react-native-qrcode-svg": "^6.2.0",
+    "react-native-svg": "13.4.0",
     "react-native-webview": "11.26.0"
   },
   "devDependencies": {

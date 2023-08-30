@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, SafeAreaView, Platform, StatusBar, Image, Linking, Alert } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import { TouchableOpacity } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Terms({ children, style, navigation }) {
   const [isChecked, setChecked] = useState(false);
   const [isChecked2, setChecked2] = useState(false);
 
+  useEffect(() => {
+    (async function () {
+      const id = await AsyncStorage.getItem("driver_id");
+      console.log(id);
+    })();
+  }, []);
+
   const submitTC = () => {
     if (isChecked && isChecked2) navigation.navigate("vehicle");
-    else Alert.alert("Please Select the checkboxes!");
+    else Alert.alert("Fields Missing", "Please Select the checkboxes!");
   };
 
   return (

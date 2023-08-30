@@ -8,7 +8,7 @@ function LoginScreen({ children, style, navigation }) {
       {children}
       <View style={{ backgroundColor: "white", flex: 1 }}>
         <View style={{ flex: 0.4, backgroundColor: "white", justifyContent: "center", alignItems: "center" }}>
-          <Image source={require("../../assets/logos/cabsLogo.png")} />
+          <Image source={require("../../assets/qrcabs-logo.png")} style={{ height: 100, width: 300 }} />
         </View>
 
         <View style={{ flex: 0.5, backgroundColor: "white" }}>
@@ -18,7 +18,7 @@ function LoginScreen({ children, style, navigation }) {
             </View>
             <View style={{ alignItems: "center", justifyContent: "center" }}>
               <TouchableOpacity
-                onPress={() => navigation.navigate("regfirst")}
+                onPress={() => navigation.navigate("otpLogin")}
                 style={{
                   width: "75%",
                   height: 57,

@@ -10,11 +10,21 @@ import RegFirst from "./app/screens/RegFirst";
 import Terms from "./app/screens/Terms";
 import SelectVehicle from "./app/screens/SelectVehicle";
 import MoreDetails from "./app/screens/MoreDetails";
+import DrivingLicense from "./app/screens/DrivingLicense";
+import { View } from "react-native";
+import Aadhar from "./app/screens/Aadhar";
+import PrevVehicle from "./app/screens/PrevVehicle";
+import VehicleApp from "./app/screens/VehicleApp";
+import VehicleIns from "./app/screens/VehicleIns";
+import VehiclePoll from "./app/screens/VehiclePoll";
+import VehicleRC from "./app/screens/VehicleRC";
+import Congrats from "./app/screens/Congrats";
+import Main from "./app/screens/Main";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [isRegistered, setIsRegistered] = useState(true);
+  const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
     AsyncStorage.getItem("isRegistered")
@@ -31,14 +41,30 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="first" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="loginOpt" component={LoginScreen} options={{ headerShown: false }} />
-        {/* <Stack.Screen name="otpLogin" component={Otp} options={{ headerShown: false }} /> */}
+        <Stack.Screen name="otpLogin" component={Otp} options={{ headerShown: false }} />
         <Stack.Screen name="regfirst" component={RegFirst} options={{ headerShown: false }} />
         <Stack.Screen name="terms" component={Terms} options={{ headerShown: false }} />
         <Stack.Screen name="vehicle" component={SelectVehicle} options={{ headerShown: false }} />
         <Stack.Screen name="details" component={MoreDetails} options={{ headerShown: false }} />
+        <Stack.Screen name="drivingL" component={DrivingLicense} options={{ headerShown: false }} />
+        <Stack.Screen name="aadhar" component={Aadhar} options={{ headerShown: false }} />
+        <Stack.Screen name="prevveh" component={PrevVehicle} options={{ headerShown: false }} />
+        <Stack.Screen name="vehicleApp" component={VehicleApp} options={{ headerShown: false }} />
+        <Stack.Screen name="vehicleIns" component={VehicleIns} options={{ headerShown: false }} />
+        <Stack.Screen name="vehiclePoll" component={VehiclePoll} options={{ headerShown: false }} />
+        <Stack.Screen name="vehicleRC" component={VehicleRC} options={{ headerShown: false }} />
+        <Stack.Screen name="congo" component={Congrats} options={{ headerShown: false }} />
       </Stack.Navigator>
     );
   };
 
-  return <NavigationContainer>{isRegistered && <Register />}</NavigationContainer>;
+  const Registered = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name="main" component={Main} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    );
+  };
+
+  return <NavigationContainer>{isRegistered ? <Register /> : <Registered />}</NavigationContainer>;
 }

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { Text, View, SafeAreaView, StatusBar, Platform, ScrollView } from "react-native";
+import { Text, View, SafeAreaView, StatusBar, Platform, ScrollView, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Image, TouchableOpacity } from "react-native";
 
 function SelectVehicle({ children, style, navigation }) {
   const [mode, setMode] = useState("");
   const selectMode = () => {
-    console.log(mode);
-    navigation.replace("details", { mode });
+    if (mode !== "") navigation.push("details", { mode });
+    else Alert.alert("Fields Missing", "Select Vehicle / Driver");
   };
 
   return (
