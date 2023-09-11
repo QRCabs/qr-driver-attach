@@ -37,8 +37,8 @@ export default function App() {
   }, []);
 
   const Register = () => {
-    return (
-      <Stack.Navigator>
+  return (
+    <Stack.Navigator initialRouteName={isRegistered ? "main" : "first"}>
         <Stack.Screen name="first" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="loginOpt" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="otpLogin" component={Otp} options={{ headerShown: false }} />
