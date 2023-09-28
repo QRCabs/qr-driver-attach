@@ -1,7 +1,17 @@
-import React, { useState } from "react";
-import { View, Text, SafeAreaView, Platform, StatusBar, Image, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Platform,
+  StatusBar,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import firebase from "firebase/compat/app";
 
 function VehicleIns({ children, style, navigation }) {
   const [image, setImage] = useState(null);
@@ -52,10 +62,16 @@ function VehicleIns({ children, style, navigation }) {
   const submit = async () => {
     const exist = await AsyncStorage.getItem("completed");
     const store = exist != null ? JSON.parse(exist) : null;
-    AsyncStorage.setItem("completed", JSON.stringify({ ...store, vehicleIns: true }))
+    AsyncStorage.setItem(
+      "vehicleIns_url",
+      JSON.stringify({ imageUri, imageUri2 })
+    );
+    AsyncStorage.setItem(
+      "completed",
+      JSON.stringify({ ...store, vehicleIns: true })
+    )
       .then(() => navigation.navigate("details"))
       .catch((err) => console.log(err));
-    AsyncStorage.setItem("vehicleIns_url", JSON.stringify({ imageUri, imageUri2 }));
   };
 
   return (
@@ -79,19 +95,39 @@ function VehicleIns({ children, style, navigation }) {
           paddingTop: 40,
         }}
       >
-        <Text style={{ fontSize: 20, fontWeight: "400" }}>Upload vehicle insurance</Text>
+        <Text style={{ fontSize: 20, fontWeight: "400" }}>
+          Upload vehicle insurance
+        </Text>
       </View>
 
       <View style={{ paddingTop: 10 }}>
-        <Text style={{ fontSize: 12, fontWeight: "400" }}>1. Upload clear picture of document</Text>
-        <Text style={{ fontSize: 12, fontWeight: "400" }}>2. Photocopies and printouts are not accepted</Text>
         <Text style={{ fontSize: 12, fontWeight: "400" }}>
-          3. Uploaded files shouldn't be more than 5mb and it should be belong to JPG,JPEG,PNG,PDF,type only
+          1. Upload clear picture of document
+        </Text>
+        <Text style={{ fontSize: 12, fontWeight: "400" }}>
+          2. Photocopies and printouts are not accepted
+        </Text>
+        <Text style={{ fontSize: 12, fontWeight: "400" }}>
+          3. Uploaded files shouldn't be more than 5mb and it should be belong
+          to JPG,JPEG,PNG,PDF,type only
         </Text>
       </View>
-      <View style={{ paddingTop: 15, justifyContent: "center", alignItems: "center" }}>
-        {!image && (
-          <TouchableOpacity onPress={() => selectPhoto()} style={{ justifyContent: "center", alignItems: "center", paddingTop: 10 }}>
+      <View
+        style={{
+          paddingTop: 15,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {(!image || !image2) && (
+          <TouchableOpacity
+            onPress={() => selectPhoto()}
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              paddingTop: 10,
+            }}
+          >
             <View
               style={{
                 padding: 80,
@@ -102,23 +138,55 @@ function VehicleIns({ children, style, navigation }) {
                 justifyContent: "center",
               }}
             >
-              <Image style={{ height: 64, width: 64 }} source={require("../../assets/uplaod.png")}></Image>
+              <Image
+                style={{ height: 64, width: 64 }}
+                source={require("../../assets/uplaod.png")}
+              ></Image>
               <View style={{ paddingTop: 15 }}>
-                <Text style={{ fontSize: 14, fontWeight: "400" }}>Click anywhere in this box to upload insurance document</Text>
+                <Text style={{ fontSize: 14, fontWeight: "400" }}>
+                  Click anywhere in this box to upload insurance document
+                </Text>
               </View>
             </View>
           </TouchableOpacity>
         )}
       </View>
-      <View style={{ width: "100%", height: 150, backgroundColor: "white", paddingTop: 20, flexDirection: "row" }}>
+      <View
+        style={{
+          width: "100%",
+          height: 150,
+          backgroundColor: "white",
+          paddingTop: 20,
+          flexDirection: "row",
+          marginHorizontal: 15,
+        }}
+      >
         {image && (
           <View style={{ height: 100, width: 80, paddingRight: 10 }}>
-            <Image style={{ height: 83, width: 65 }} source={{ uri: image }}></Image>
+            <TouchableOpacity
+              style={styles.removeImageBtn}
+              onPress={() => setImage(null)}
+            >
+              <Text>X</Text>
+            </TouchableOpacity>
+            <Image
+              style={{ height: 83, width: 65 }}
+              source={{ uri: image }}
+            ></Image>
           </View>
         )}
         {image2 && (
-          <View>
-            <Image style={{ height: 83, width: 65 }} source={{ uri: image2 }}></Image>
+          <View style={{ height: 100, width: 80, paddingRight: 10 }}>
+            <TouchableOpacity
+              style={styles.removeImageBtn}
+              onPress={() => setImage2(null)}
+            >
+              <Text>X</Text>
+            </TouchableOpacity>
+            <Image
+              style={{ height: 83, width: 65 }}
+              source={{ uri: image2 }}
+            ></Image>
           </View>
         )}
       </View>
@@ -139,11 +207,28 @@ function VehicleIns({ children, style, navigation }) {
             elevation: 10,
           }}
         >
-          <Text style={{ fontSize: 16, color: "#282828", fontWeight: "600" }}>Submit</Text>
+          <Text style={{ fontSize: 16, color: "#282828", fontWeight: "600" }}>
+            Submit
+          </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  removeImageBtn: {
+    position: "absolute",
+    right: 10,
+    top: -5,
+    zIndex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "red",
+    width: 20,
+    height: 20,
+    borderRadius: 15,
+  },
+});
 
 export default VehicleIns;

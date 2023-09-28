@@ -1,13 +1,22 @@
 import React, { useState } from "react";
-import { View, Text, SafeAreaView, Platform, StatusBar, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Platform,
+  StatusBar,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StyleSheet } from "react-native";
 
 function VehicleRC({ children, style, navigation }) {
   const [image, setImage] = useState(null);
   const [image2, setImage2] = useState(null);
 
-  const selectPhoto = async () => {
+  const selectPhoto = async (docSide) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -15,7 +24,7 @@ function VehicleRC({ children, style, navigation }) {
       quality: 1,
     });
     console.log(result);
-    if (!image) {
+    if (docSide === "front") {
       setImage(result.assets[0].uri);
     } else {
       setImage2(result.assets[0].uri);
@@ -25,10 +34,16 @@ function VehicleRC({ children, style, navigation }) {
   const submit = async () => {
     const exist = await AsyncStorage.getItem("completed");
     const store = exist != null ? JSON.parse(exist) : null;
-    AsyncStorage.setItem("completed", JSON.stringify({ ...store, vehicleRC: true }))
+    AsyncStorage.setItem(
+      "completed",
+      JSON.stringify({ ...store, vehicleRC: true })
+    )
       .then(() => navigation.navigate("details"))
       .catch((err) => console.log(err));
-    AsyncStorage.setItem("vehicleRC_url", JSON.stringify({ imageUri, image2Uri }));
+    AsyncStorage.setItem(
+      "vehicleRC_url",
+      JSON.stringify({ imageUri, image2Uri })
+    );
   };
 
   return (
@@ -52,20 +67,42 @@ function VehicleRC({ children, style, navigation }) {
           paddingTop: 40,
         }}
       >
-        <Text style={{ fontSize: 20, fontWeight: "400" }}>Upload Vehicle Fitness & Pollution</Text>
+        <Text style={{ fontSize: 20, fontWeight: "400" }}>
+          Upload Vehicle Fitness & Pollution
+        </Text>
       </View>
 
       <View style={{ paddingTop: 10 }}>
-        <Text style={{ fontSize: 12, fontWeight: "400" }}>1. Upload clear picture of document</Text>
-        <Text style={{ fontSize: 12, fontWeight: "400" }}>2. Photocopies and printouts are not accepted</Text>
-        <Text style={{ fontSize: 12, fontWeight: "400" }}>3. Both sides of RC is compulsory</Text>
         <Text style={{ fontSize: 12, fontWeight: "400" }}>
-          4. Uploaded files shouldn't be more than 5mb and it should be belong to JPG,JPEG,PNG,PDF,type only
+          1. Upload clear picture of document
+        </Text>
+        <Text style={{ fontSize: 12, fontWeight: "400" }}>
+          2. Photocopies and printouts are not accepted
+        </Text>
+        <Text style={{ fontSize: 12, fontWeight: "400" }}>
+          3. Both sides of RC is compulsory
+        </Text>
+        <Text style={{ fontSize: 12, fontWeight: "400" }}>
+          4. Uploaded files shouldn't be more than 5mb and it should be belong
+          to JPG,JPEG,PNG,PDF,type only
         </Text>
       </View>
-      <View style={{ paddingTop: 15, justifyContent: "center", alignItems: "center" }}>
-        {!image && (
-          <TouchableOpacity onPress={() => selectPhoto()} style={{ justifyContent: "center", alignItems: "center", paddingTop: 10 }}>
+      <View
+        style={{
+          paddingTop: 15,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {(!image || !image2) && (
+          <TouchableOpacity
+            onPress={() => selectPhoto(image && !image2 ? "back" : "front")}
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              paddingTop: 10,
+            }}
+          >
             <View
               style={{
                 padding: 100,
@@ -76,23 +113,54 @@ function VehicleRC({ children, style, navigation }) {
                 justifyContent: "center",
               }}
             >
-              <Image style={{ height: 64, width: 64 }} source={require("../../assets/uplaod.png")}></Image>
+              <Image
+                style={{ height: 64, width: 64 }}
+                source={require("../../assets/uplaod.png")}
+              ></Image>
               <View style={{ paddingTop: 15 }}>
-                <Text style={{ fontSize: 14, fontWeight: "400" }}>Click anywhere in this box to upload insurance document</Text>
+                <Text style={{ fontSize: 14, fontWeight: "400" }}>
+                  Click anywhere in this box to upload insurance document
+                </Text>
               </View>
             </View>
           </TouchableOpacity>
         )}
       </View>
-      <View style={{ width: "100%", height: 150, backgroundColor: "white", paddingTop: 20, flexDirection: "row" }}>
+      <View
+        style={{
+          width: "100%",
+          height: 150,
+          backgroundColor: "white",
+          paddingTop: 20,
+          flexDirection: "row",
+        }}
+      >
         {image && (
           <View style={{ height: 100, width: 80, paddingRight: 10 }}>
-            <Image style={{ height: 83, width: 65 }} source={{ uri: image }}></Image>
+            <TouchableOpacity
+              style={styles.removeImageBtn}
+              onPress={() => setImage(null)}
+            >
+              <Text>X</Text>
+            </TouchableOpacity>
+            <Image
+              style={{ height: 83, width: 65 }}
+              source={{ uri: image }}
+            ></Image>
           </View>
         )}
         {image2 && (
-          <View>
-            <Image style={{ height: 83, width: 65 }} source={{ uri: image2 }}></Image>
+          <View style={{ height: 100, width: 80, paddingRight: 10 }}>
+            <TouchableOpacity
+              style={styles.removeImageBtn}
+              onPress={() => setImage2(null)}
+            >
+              <Text>X</Text>
+            </TouchableOpacity>
+            <Image
+              style={{ height: 83, width: 65 }}
+              source={{ uri: image2 }}
+            ></Image>
           </View>
         )}
       </View>
@@ -113,11 +181,28 @@ function VehicleRC({ children, style, navigation }) {
             elevation: 10,
           }}
         >
-          <Text style={{ fontSize: 16, color: "#282828", fontWeight: "600" }}>Submit</Text>
+          <Text style={{ fontSize: 16, color: "#282828", fontWeight: "600" }}>
+            Submit
+          </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  removeImageBtn: {
+    position: "absolute",
+    right: 10,
+    top: -5,
+    zIndex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "red",
+    width: 20,
+    height: 20,
+    borderRadius: 15,
+  },
+});
 
 export default VehicleRC;

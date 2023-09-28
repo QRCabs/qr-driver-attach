@@ -30,7 +30,10 @@ function Otp({ children, style, navigation }) {
 
   let confirmCode = () => {
     console.log(code);
-    const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, code);
+    const credential = firebase.auth.PhoneAuthProvider.credential(
+      verificationId,
+      code
+    );
     firebase
       .auth()
       .signInWithCredential(credential)
@@ -40,7 +43,11 @@ function Otp({ children, style, navigation }) {
         AsyncStorage.setItem("phone_no", `+91${phone}`);
         setCode("");
         setPhone("");
-        Alert.alert("Succesfull", "You Have loggedIn Succesfully!", navigation.navigate("regfirst"));
+        Alert.alert(
+          "Succesfull",
+          "You Have loggedIn Succesfully!",
+          navigation.navigate("regfirst")
+        );
       })
       .catch((err) => {
         console.err(err);
@@ -48,10 +55,22 @@ function Otp({ children, style, navigation }) {
   };
 
   return (
-    <SafeAreaView style={[{ flex: 1, backgroundColor: "white", paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0 }, style]}>
+    <SafeAreaView
+      style={[
+        {
+          flex: 1,
+          backgroundColor: "white",
+          paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        },
+        style,
+      ]}
+    >
       {children}
       <View style={{ flex: 1, width: "100%" }}>
-        <FirebaseRecaptchaVerifierModal ref={recaptchaVerifier} firebaseConfig={firebaseConfig} />
+        <FirebaseRecaptchaVerifierModal
+          ref={recaptchaVerifier}
+          firebaseConfig={firebaseConfig}
+        />
         {!otp && (
           <OtpReq
             phone={phone}

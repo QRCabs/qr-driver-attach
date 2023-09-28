@@ -37,23 +37,83 @@ export default function App() {
   }, []);
 
   const Register = () => {
-  return (
-    <Stack.Navigator initialRouteName={isRegistered ? "main" : "first"}>
-        <Stack.Screen name="first" component={Home} options={{ headerShown: false }} />
-        <Stack.Screen name="loginOpt" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="otpLogin" component={Otp} options={{ headerShown: false }} />
-        <Stack.Screen name="regfirst" component={RegFirst} options={{ headerShown: false }} />
-        <Stack.Screen name="terms" component={Terms} options={{ headerShown: false }} />
-        <Stack.Screen name="vehicle" component={SelectVehicle} options={{ headerShown: false }} />
-        <Stack.Screen name="details" component={MoreDetails} options={{ headerShown: false }} />
-        <Stack.Screen name="drivingL" component={DrivingLicense} options={{ headerShown: false }} />
-        <Stack.Screen name="aadhar" component={Aadhar} options={{ headerShown: false }} />
-        <Stack.Screen name="prevveh" component={PrevVehicle} options={{ headerShown: false }} />
-        <Stack.Screen name="vehicleApp" component={VehicleApp} options={{ headerShown: false }} />
-        <Stack.Screen name="vehicleIns" component={VehicleIns} options={{ headerShown: false }} />
-        <Stack.Screen name="vehiclePoll" component={VehiclePoll} options={{ headerShown: false }} />
-        <Stack.Screen name="vehicleRC" component={VehicleRC} options={{ headerShown: false }} />
-        <Stack.Screen name="congo" component={Congrats} options={{ headerShown: false }} />
+    return (
+      <Stack.Navigator initialRouteName={isRegistered ? "main" : "first"}>
+        <Stack.Screen
+          name="first"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="loginOpt"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="otpLogin"
+          component={Otp}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="regfirst"
+          component={RegFirst}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="terms"
+          component={Terms}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="vehicle"
+          component={SelectVehicle}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="details"
+          component={MoreDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="drivingL"
+          component={DrivingLicense}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="aadhar"
+          component={Aadhar}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="prevveh"
+          component={PrevVehicle}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="vehicleApp"
+          component={VehicleApp}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="vehicleIns"
+          component={VehicleIns}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="vehiclePoll"
+          component={VehiclePoll}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="vehicleRC"
+          component={VehicleRC}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="congo"
+          component={Congrats}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     );
   };
@@ -61,10 +121,18 @@ export default function App() {
   const Registered = () => {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="main" component={Main} options={{ headerShown: false }} />
+        <Stack.Screen
+          name="main"
+          component={Main}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     );
   };
 
-  return <NavigationContainer>{isRegistered ? <Register /> : <Registered />}</NavigationContainer>;
+  return (
+    <NavigationContainer>
+      {isRegistered ? <Register /> : <Registered />}
+    </NavigationContainer>
+  );
 }

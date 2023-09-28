@@ -1,6 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
-import { View, Text, SafeAreaView, Platform, StatusBar, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Platform,
+  StatusBar,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import GenerateQRCode from "../components/GenerateQRCode";
 
 function Main({ children, style }) {
@@ -31,20 +39,53 @@ function Main({ children, style }) {
     >
       {children}
 
-      <View style={{ justifyContent: "center", alignItems: "center", paddingTop: 100 }}>
-        <Image source={require("../../assets/qrcabs-logo.png")} style={{ height: 70, width: 270 }} />
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          paddingTop: 100,
+        }}
+      >
+        <Image
+          source={require("../../assets/qrcabs-logo.png")}
+          style={{ height: 70, width: 270 }}
+        />
       </View>
-      <View style={{ justifyContent: "center", alignItems: "center", paddingTop: 20 }}>
-        <Text style={{ fontSize: 20, color: "#282828" }}>Welcome, {name ? name : "User"}!</Text>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          paddingTop: 20,
+        }}
+      >
+        <Text style={{ fontSize: 20, color: "#282828" }}>
+          Welcome, {name ? name : "User"}!
+        </Text>
       </View>
-      <View style={{ justifyContent: "center", alignItems: "center", paddingTop: 90 }}>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          paddingTop: 90,
+        }}
+      >
         <GenerateQRCode data={qrData} size={300} />
       </View>
-      <View style={{ justifyContent: "center", alignItems: "center", paddingTop: 50 }}>
-        <Text style={{ fontSize: 20, color: "#282828" }}>Scan This QR Code From Customer App</Text>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          paddingTop: 50,
+        }}
+      >
+        <Text style={{ fontSize: 20, color: "#282828" }}>
+          Scan This QR Code From Customer App
+        </Text>
       </View>
 
-      <View style={{ alignItems: "center", justifyContent: "center", flex: 0.7 }}>
+      <View
+        style={{ alignItems: "center", justifyContent: "center", flex: 0.7 }}
+      >
         <TouchableOpacity
           onPress={() => {
             AsyncStorage.removeItem("isRegistered");
@@ -61,7 +102,9 @@ function Main({ children, style }) {
             elevation: 5,
           }}
         >
-          <Text style={{ fontSize: 16, color: "#282828", fontWeight: "600" }}>Done</Text>
+          <Text style={{ fontSize: 16, color: "#282828", fontWeight: "600" }}>
+            Done
+          </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
