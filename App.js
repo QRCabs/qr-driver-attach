@@ -20,6 +20,8 @@ import VehiclePoll from "./app/screens/VehiclePoll";
 import VehicleRC from "./app/screens/VehicleRC";
 import Congrats from "./app/screens/Congrats";
 import Main from "./app/screens/Main";
+import DrivingLicenseNo from "./app/screens/DrivingLicenseNo";
+import VehiclePermit from "./app/screens/VehiclePermit";
 
 const Stack = createNativeStackNavigator();
 
@@ -80,6 +82,11 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name="drivingLNo"
+          component={DrivingLicenseNo}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="aadhar"
           component={Aadhar}
           options={{ headerShown: false }}
@@ -97,6 +104,11 @@ export default function App() {
         <Stack.Screen
           name="vehicleIns"
           component={VehicleIns}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="vehiclPermit"
+          component={VehiclePermit}
           options={{ headerShown: false }}
         />
         <Stack.Screen

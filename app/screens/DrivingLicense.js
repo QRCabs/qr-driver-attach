@@ -1,6 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { View, Text, SafeAreaView, Platform, StatusBar, Image, TouchableOpacity, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Platform,
+  StatusBar,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  StyleSheet,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function DrivingLicense({ children, style, navigation }) {
@@ -15,7 +25,7 @@ function DrivingLicense({ children, style, navigation }) {
     AsyncStorage.getItem("driver_id").then((res) => setDriverId(res));
   }, []);
 
-  const selectPhoto = async () => {
+  const selectPhoto = async (pType) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -24,7 +34,9 @@ function DrivingLicense({ children, style, navigation }) {
     });
     console.log(result);
     if (!result.canceled) {
-      topImage ? setBottomImage(result.assets[0].uri) : setTopImage(result.assets[0].uri);
+      pType === "top"
+        ? setTopImage(result.assets[0].uri)
+        : setBottomImage(result.assets[0].uri);
       uploadImage(result.assets[0].uri);
     }
   };
@@ -53,10 +65,16 @@ function DrivingLicense({ children, style, navigation }) {
   const submit = async () => {
     const exist = await AsyncStorage.getItem("completed");
     const store = exist != null ? JSON.parse(exist) : null;
-    AsyncStorage.setItem("completed", JSON.stringify({ ...store, driving: true }))
+    AsyncStorage.setItem(
+      "completed",
+      JSON.stringify({ ...store, driving: true })
+    )
       .then(() => navigation.navigate("details"))
       .catch((err) => console.log(err));
-    AsyncStorage.setItem("drivingL_url", JSON.stringify({ imageUri, imageUri2 }));
+    AsyncStorage.setItem(
+      "drivingL_url",
+      JSON.stringify({ imageUri, imageUri2 })
+    );
   };
 
   return (
@@ -82,13 +100,20 @@ function DrivingLicense({ children, style, navigation }) {
               marginTop: 40,
             }}
           >
-            <Text style={{ fontSize: 20, fontWeight: "400" }}>Driving License</Text>
+            <Text style={{ fontSize: 20, fontWeight: "400" }}>
+              Driving License
+            </Text>
           </View>
           <View style={{ paddingTop: 10 }}>
-            <Text style={{ fontSize: 12, fontWeight: "400" }}>1. Upload clear picture of document</Text>
-            <Text style={{ fontSize: 12, fontWeight: "400" }}>2. Photocopies and printouts are not accepted</Text>
             <Text style={{ fontSize: 12, fontWeight: "400" }}>
-              3. Uploaded files shouldn't be more than 5mb and it should be belong to JPG,JPEG,PNG,PDF,type only
+              1. Upload clear picture of document
+            </Text>
+            <Text style={{ fontSize: 12, fontWeight: "400" }}>
+              2. Photocopies and printouts are not accepted
+            </Text>
+            <Text style={{ fontSize: 12, fontWeight: "400" }}>
+              3. Uploaded files shouldn't be more than 5mb and it should be
+              belong to JPG,JPEG,PNG,PDF,type only
             </Text>
           </View>
 
@@ -102,30 +127,8 @@ function DrivingLicense({ children, style, navigation }) {
               justifyContent: "space-evenly",
             }}
           >
-            <TouchableOpacity onPress={() => selectPhoto("top")}>
-              <View
-                style={{
-                  height: 114,
-                  width: 132,
-                  borderWidth: 2,
-                  borderColor: "#064347",
-                  alignItems: "center",
-                  paddingTop: 17,
-                  borderStyle: "dashed",
-                }}
-              >
-                {topImage === null ? (
-                  <Image style={{ height: 32.9, width: 32.9 }} source={require("../../assets/uplaod.png")}></Image>
-                ) : (
-                  <Image style={{ height: 114, width: 132 }} source={{ uri: topImage }}></Image>
-                )}
-
-                <Text style={{ paddingTop: 12, fontWeight: "400" }}>Upload top</Text>
-              </View>
-            </TouchableOpacity>
-            {topImage && <Image style={{ width: 132, height: 114 }} source={{ uri: topImage }}></Image>}
-            <TouchableOpacity onPress={() => selectPhoto()}>
-              {!bottomImage && (
+            {!topImage && (
+              <TouchableOpacity onPress={() => selectPhoto("top")}>
                 <View
                   style={{
                     height: 114,
@@ -137,12 +140,77 @@ function DrivingLicense({ children, style, navigation }) {
                     borderStyle: "dashed",
                   }}
                 >
-                  <Image style={{ height: 32.9, width: 32.9 }} source={require("../../assets/uplaod.png")}></Image>
-                  <Text style={{ paddingTop: 12, fontWeight: "400" }}>Upload back</Text>
+                  {topImage === null ? (
+                    <Image
+                      style={{ height: 32.9, width: 32.9 }}
+                      source={require("../../assets/uplaod.png")}
+                    ></Image>
+                  ) : (
+                    <Image
+                      style={{ height: 114, width: 132 }}
+                      source={{ uri: topImage }}
+                    ></Image>
+                  )}
+
+                  <Text style={{ paddingTop: 12, fontWeight: "400" }}>
+                    Upload top
+                  </Text>
                 </View>
-              )}
-            </TouchableOpacity>
-            {bottomImage && <Image style={{ width: 132, height: 114 }} source={{ uri: bottomImage }}></Image>}
+              </TouchableOpacity>
+            )}
+            {topImage && (
+              <View>
+                <TouchableOpacity
+                  style={styles.removeImageBtn}
+                  onPress={() => setTopImage(null)}
+                >
+                  <Text>X</Text>
+                </TouchableOpacity>
+                <Image
+                  style={{ width: 132, height: 114 }}
+                  source={{ uri: topImage }}
+                ></Image>
+              </View>
+            )}
+            {!bottomImage && (
+              <TouchableOpacity onPress={() => selectPhoto()}>
+                {!bottomImage && (
+                  <View
+                    style={{
+                      height: 114,
+                      width: 132,
+                      borderWidth: 2,
+                      borderColor: "#064347",
+                      alignItems: "center",
+                      paddingTop: 17,
+                      borderStyle: "dashed",
+                    }}
+                  >
+                    <Image
+                      style={{ height: 32.9, width: 32.9 }}
+                      source={require("../../assets/uplaod.png")}
+                    ></Image>
+                    <Text style={{ paddingTop: 12, fontWeight: "400" }}>
+                      Upload back
+                    </Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+            )}
+            {bottomImage && (
+              <View>
+                <TouchableOpacity
+                  style={styles.removeImageBtn}
+                  onPress={() => setBottomImage(null)}
+                >
+                  <Text>X</Text>
+                </TouchableOpacity>
+                <Image
+                  style={{ width: 132, height: 114 }}
+                  source={{ uri: bottomImage }}
+                ></Image>
+              </View>
+            )}
           </View>
           <View
             style={{
@@ -152,7 +220,9 @@ function DrivingLicense({ children, style, navigation }) {
               paddingTop: 10,
             }}
           >
-            <Text style={{ fontSize: 20, fontWeight: "400" }}>Driving License number</Text>
+            <Text style={{ fontSize: 20, fontWeight: "400" }}>
+              Driving License number
+            </Text>
           </View>
           <View style={{}}>
             <View
@@ -167,7 +237,10 @@ function DrivingLicense({ children, style, navigation }) {
                 borderColor: "#064347",
               }}
             >
-              <TextInput style={{ fontSize: 14, fontWeight: "400" }} placeholder={"Enter your license number here"} />
+              <TextInput
+                style={{ fontSize: 14, fontWeight: "400" }}
+                placeholder={"Enter your license number here"}
+              />
             </View>
           </View>
         </View>
@@ -187,12 +260,29 @@ function DrivingLicense({ children, style, navigation }) {
               elevation: 10,
             }}
           >
-            <Text style={{ fontSize: 16, color: "#282828", fontWeight: "600" }}>Submit</Text>
+            <Text style={{ fontSize: 16, color: "#282828", fontWeight: "600" }}>
+              Submit
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  removeImageBtn: {
+    position: "absolute",
+    right: -5,
+    top: -5,
+    zIndex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "red",
+    width: 20,
+    height: 20,
+    borderRadius: 15,
+  },
+});
 
 export default DrivingLicense;
