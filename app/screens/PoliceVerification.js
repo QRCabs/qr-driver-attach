@@ -1,43 +1,28 @@
-import React, { useEffect, useState } from "react";
-import * as ImagePicker from "expo-image-picker";
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Platform,
-  StatusBar,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  StyleSheet,
-} from "react-native";
+import { useEffect, useState } from "react";
+import { Image, StatusBar, StyleSheet, TouchableOpacity } from "react-native";
+import { Platform, SafeAreaView, Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import TwoSidedDocs from "../components/TwoSidedDocs";
+import * as ImagePicker from "expo-image-picker";
+import firebase from "firebase/compat/app";
 
-function DrivingLicense({ children, style, navigation, route }) {
-  const [frontImage, setFrontImage] = useState(null);
-  const [backImage, setBackImage] = useState(null);
-
+const PoliceVerification = ({ children, style, navigation, route }) => {
+  const [topImage, setTopImage] = useState(null);
   const [imageUri, setImageUri] = useState(null);
-  const [imageUri2, setImageUri2] = useState(null);
   const [driverId, setDriverId] = useState("");
 
   useEffect(() => {
     AsyncStorage.getItem("driver_id").then((res) => setDriverId(res));
   }, []);
 
-  const selectPhoto = async (pType) => {
+  const selectPhoto = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [3, 4],
       quality: 0.7,
     });
     console.log(result);
     if (!result.canceled) {
-      pType === "front"
-        ? setFrontImage(result.assets[0].uri)
-        : setBackImage(result.assets[0].uri);
+      setTopImage(result.assets[0].uri);
       uploadImage(result.assets[0].uri);
     }
   };
@@ -56,7 +41,9 @@ function DrivingLicense({ children, style, navigation, route }) {
     try {
       await storageRef.put(blob);
       const imageUrl = await storageRef.getDownloadURL(); // Get the URL of the uploaded image
-      imageUri ? setImageUri2(imageUrl) : setImageUri(imageUrl);
+      if (imageUri) {
+        setImageUri(imageUrl);
+      }
     } catch (error) {
       Alert.alert("Error uploading image", error.message);
       console.error(error);
@@ -68,14 +55,11 @@ function DrivingLicense({ children, style, navigation, route }) {
     const store = exist != null ? JSON.parse(exist) : null;
     AsyncStorage.setItem(
       "completed",
-      JSON.stringify({ ...store, driving: true })
+      JSON.stringify({ ...store, policeVerification: true })
     )
       .then(() => navigation.navigate("details"))
       .catch((err) => console.log(err));
-    AsyncStorage.setItem(
-      "drivingL_url",
-      JSON.stringify({ imageUri, imageUri2 })
-    );
+    AsyncStorage.setItem("drivingL_url", JSON.stringify({ imageUri }));
   };
 
   return (
@@ -102,7 +86,7 @@ function DrivingLicense({ children, style, navigation, route }) {
             }}
           >
             <Text style={{ fontSize: 20, fontWeight: "400" }}>
-              Driving License
+              Police Verification
             </Text>
           </View>
           <View style={{ paddingTop: 10 }}>
@@ -115,13 +99,62 @@ function DrivingLicense({ children, style, navigation, route }) {
             </Text>
           </View>
 
-          <TwoSidedDocs
-            frontImage={frontImage}
-            backImage={backImage}
-            setFrontImage={setFrontImage}
-            setBackImage={setBackImage}
-            selectPhoto={selectPhoto}
-          />
+          <View
+            style={{
+              width: "100%",
+              height: 250,
+              backgroundColor: "white",
+              flexDirection: "row",
+              paddingTop: 25,
+              justifyContent: "space-evenly",
+            }}
+          >
+            {!topImage && (
+              <TouchableOpacity onPress={selectPhoto}>
+                <View
+                  style={{
+                    height: 114,
+                    width: 132,
+                    borderWidth: 2,
+                    borderColor: "#064347",
+                    alignItems: "center",
+                    paddingTop: 17,
+                    borderStyle: "dashed",
+                  }}
+                >
+                  {topImage === null ? (
+                    <Image
+                      style={{ height: 32.9, width: 32.9 }}
+                      source={require("../../assets/uplaod.png")}
+                    ></Image>
+                  ) : (
+                    <Image
+                      style={{ height: 114, width: 132 }}
+                      source={{ uri: topImage }}
+                    ></Image>
+                  )}
+
+                  <Text style={{ paddingTop: 12, fontWeight: "400" }}>
+                    Upload image
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+            {topImage && (
+              <View>
+                <TouchableOpacity
+                  style={styles.removeImageBtn}
+                  onPress={() => setTopImage(null)}
+                >
+                  <Text>X</Text>
+                </TouchableOpacity>
+                <Image
+                  style={{ width: 132, height: 114 }}
+                  source={{ uri: topImage }}
+                ></Image>
+              </View>
+            )}
+          </View>
         </View>
         <View style={{ alignItems: "center", justifyContent: "center" }}>
           <TouchableOpacity
@@ -147,7 +180,7 @@ function DrivingLicense({ children, style, navigation, route }) {
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   removeImageBtn: {
@@ -164,4 +197,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DrivingLicense;
+export default PoliceVerification;

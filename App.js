@@ -22,6 +22,8 @@ import Congrats from "./app/screens/Congrats";
 import Main from "./app/screens/Main";
 import DrivingLicenseNo from "./app/screens/DrivingLicenseNo";
 import VehiclePermit from "./app/screens/VehiclePermit";
+import Selfie from "./app/screens/Selfie";
+import PoliceVerification from "./app/screens/PoliceVerification";
 
 const Stack = createNativeStackNavigator();
 
@@ -119,6 +121,16 @@ export default function App() {
         <Stack.Screen
           name="vehicleRC"
           component={VehicleRC}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="selfie"
+          component={Selfie}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="policeVerification"
+          component={PoliceVerification}
           options={{ headerShown: false }}
         />
         <Stack.Screen

@@ -8,13 +8,15 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StyleSheet } from "react-native";
+import TwoSidedDocs from "../components/TwoSidedDocs";
 
 function Aadhar({ children, style, navigation }) {
-  const [topImage, setTopImage] = useState(null);
-  const [bottomImage, setBottomImage] = useState(null);
+  const [frontImage, setFrontImage] = useState(null);
+  const [backImage, setBackImage] = useState(null);
   const selectPhoto = async (ptype) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -24,8 +26,9 @@ function Aadhar({ children, style, navigation }) {
     });
     console.log(result);
     if (!result.canceled) {
-      if (ptype === "top") setTopImage(result.assets[0].uri);
-      if (ptype === "bottom") setBottomImage(result.assets[0].uri);
+      ptype === "front"
+        ? setFrontImage(result.assets[0].uri)
+        : setBackImage(result.assets[0].uri);
     }
   };
 
@@ -70,108 +73,37 @@ function Aadhar({ children, style, navigation }) {
             1. Upload clear picture of document
           </Text>
           <Text style={{ fontSize: 12, fontWeight: "400" }}>
-            2. Photocopies and printouts are not accepted
-          </Text>
-          <Text style={{ fontSize: 12, fontWeight: "400" }}>
-            3. Uploaded files shouldn't be more than 5mb and it should be belong
+            2. Uploaded files shouldn't be more than 5mb and it should be belong
             to JPG,JPEG,PNG,PDF,type only
           </Text>
         </View>
 
+        <TwoSidedDocs
+          frontImage={frontImage}
+          backImage={backImage}
+          setFrontImage={setFrontImage}
+          setBackImage={setBackImage}
+          selectPhoto={selectPhoto}
+        />
+        <Text style={{ fontSize: 20, fontWeight: "400" }}>Aadhar Card No</Text>
         <View
           style={{
-            width: "100%",
-            height: 250,
+            width: 360,
+            height: 37,
+            paddingHorizontal: 5,
             backgroundColor: "white",
             flexDirection: "row",
-            paddingTop: 25,
-            justifyContent: "space-evenly",
+            borderWidth: 2,
+            borderRadius: 5,
+            borderColor: "#064347",
+            marginBottom: 50,
           }}
         >
-          {!topImage && (
-            <TouchableOpacity onPress={() => selectPhoto("top")}>
-              <View
-                style={{
-                  height: 114,
-                  width: 132,
-                  borderWidth: 2,
-                  borderColor: "#064347",
-                  alignItems: "center",
-                  paddingTop: 17,
-                  borderStyle: "dashed",
-                }}
-              >
-                {topImage === null ? (
-                  <Image
-                    style={{ height: 32.9, width: 32.9 }}
-                    source={require("../../assets/uplaod.png")}
-                  ></Image>
-                ) : (
-                  <Image
-                    style={{ height: 114, width: 132 }}
-                    source={{ uri: topImage }}
-                  ></Image>
-                )}
-
-                <Text style={{ paddingTop: 12, fontWeight: "400" }}>
-                  Upload top
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
-          {topImage && (
-            <View>
-              <TouchableOpacity
-                style={styles.removeImageBtn}
-                onPress={() => setTopImage(null)}
-              >
-                <Text>X</Text>
-              </TouchableOpacity>
-              <Image
-                style={{ width: 132, height: 114 }}
-                source={{ uri: topImage }}
-              />
-            </View>
-          )}
-          {!bottomImage && (
-            <TouchableOpacity onPress={() => selectPhoto("bottom")}>
-              {!bottomImage && (
-                <View
-                  style={{
-                    height: 114,
-                    width: 132,
-                    borderWidth: 2,
-                    borderColor: "#064347",
-                    alignItems: "center",
-                    paddingTop: 17,
-                    borderStyle: "dashed",
-                  }}
-                >
-                  <Image
-                    style={{ height: 32.9, width: 32.9 }}
-                    source={require("../../assets/uplaod.png")}
-                  />
-                  <Text style={{ paddingTop: 12, fontWeight: "400" }}>
-                    Upload back
-                  </Text>
-                </View>
-              )}
-            </TouchableOpacity>
-          )}
-          {bottomImage && (
-            <View>
-              <TouchableOpacity
-                style={styles.removeImageBtn}
-                onPress={() => setBottomImage(null)}
-              >
-                <Text>X</Text>
-              </TouchableOpacity>
-              <Image
-                style={{ width: 132, height: 114 }}
-                source={{ uri: bottomImage }}
-              />
-            </View>
-          )}
+          <TextInput
+            style={{ fontSize: 14, fontWeight: "400" }}
+            placeholder={"Enter your aadhar number here"}
+            onChangeText={() => {}}
+          />
         </View>
         <View style={{ alignItems: "center", justifyContent: "center" }}>
           <TouchableOpacity

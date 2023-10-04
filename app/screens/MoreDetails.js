@@ -6,23 +6,24 @@ import {
   SafeAreaView,
   Platform,
   StatusBar,
-  Image,
-  TextInput,
   TouchableOpacity,
 } from "react-native";
 import Accordion from "../components/Accordion";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import BikeAttachments from "../components/BikeAttachments";
 
 function MoreDetails({ children, style, navigation, route }) {
   // console.log(route.params);
 
   const [completed, setCompleted] = useState({});
   const [mode, setMode] = useState(false);
+  const [selectedMode, setSelectedMode] = useState(false);
   const [name, setName] = useState("");
   const [visible, setVisible] = useState(false);
   const [objLength, setObjLength] = useState(0);
 
   useEffect(() => {
+    setSelectedMode(route.params.mode);
     if (route.params.mode === "Driver") setMode(true);
     AsyncStorage.getItem("details")
       .then((res) => {
@@ -92,75 +93,107 @@ function MoreDetails({ children, style, navigation, route }) {
           Welcome {name ? name : "User"},
         </Text>
       </View>
+      {selectedMode === "Bike" ? (
+        <BikeAttachments
+          mode={selectedMode}
+          navigation={navigation}
+          completed={completed}
+        />
+      ) : (
+        <Accordion
+          title={"Enter Your vehicles details"}
+          style={{ marginBottom: 40 }}
+          block={!mode}
+        >
+          <TouchableOpacity
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+            onPress={() => navigation.navigate("vehicleApp")}
+          >
+            <Text>Appearance</Text>
+            {!completed?.vehicleApp && !completed?.vehicleApp && (
+              <FontAwesome name="long-arrow-right" size={20} />
+            )}
+            {completed?.vehicleApp && completed?.vehicleApp && (
+              <FontAwesome
+                name="check"
+                size={20}
+                style={{ color: "#20BB20" }}
+              />
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+            onPress={() => navigation.navigate("vehicleRC")}
+          >
+            <Text>Registration Certificate (RC)</Text>
+            {!completed?.vehicleRC && !completed?.vehicleRC && (
+              <FontAwesome name="long-arrow-right" size={20} />
+            )}
+            {completed?.vehicleRC && completed?.vehicleRC && (
+              <FontAwesome
+                name="check"
+                size={20}
+                style={{ color: "#20BB20" }}
+              />
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+            onPress={() => navigation.navigate("vehicleIns")}
+          >
+            <Text>Vehicle Insurance</Text>
+            {!completed?.vehicleIns && !completed?.vehicleIns && (
+              <FontAwesome name="long-arrow-right" size={20} />
+            )}
+            {completed?.vehicleIns && completed?.vehicleIns && (
+              <FontAwesome
+                name="check"
+                size={20}
+                style={{ color: "#20BB20" }}
+              />
+            )}
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+            onPress={() => navigation.navigate("vehiclPermit")}
+          >
+            <Text>Vehicle permit</Text>
+            {!completed?.vehiclePermit && !completed?.vehiclePermit && (
+              <FontAwesome name="long-arrow-right" size={20} />
+            )}
+            {completed?.vehiclePermit && completed?.vehiclePermit && (
+              <FontAwesome
+                name="check"
+                size={20}
+                style={{ color: "#20BB20" }}
+              />
+            )}
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+            onPress={() => navigation.navigate("vehiclePoll")}
+          >
+            <Text>Vehicle Fitness (Optional)</Text>
+            {!completed?.vehiclePoll && !completed?.vehiclePoll && (
+              <FontAwesome name="long-arrow-right" size={20} />
+            )}
+            {completed?.vehiclePoll && completed?.vehiclePoll && (
+              <FontAwesome
+                name="check"
+                size={20}
+                style={{ color: "#20BB20" }}
+              />
+            )}
+          </TouchableOpacity>
+        </Accordion>
+      )}
+
       <Accordion
-        title={"Enter Your vehicles details"}
-        style={{ marginBottom: 40 }}
-        block={!mode}
+        title={"Complete Your Profile"}
+        block={selectedMode === "Driver"}
       >
-        <TouchableOpacity
-          style={{ flexDirection: "row", justifyContent: "space-between" }}
-          onPress={() => navigation.navigate("vehicleApp")}
-        >
-          <Text>Appearance</Text>
-          {!completed?.vehicleApp && !completed?.vehicleApp && (
-            <FontAwesome name="long-arrow-right" size={20} />
-          )}
-          {completed?.vehicleApp && completed?.vehicleApp && (
-            <FontAwesome name="check" size={20} style={{ color: "#20BB20" }} />
-          )}
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ flexDirection: "row", justifyContent: "space-between" }}
-          onPress={() => navigation.navigate("vehicleRC")}
-        >
-          <Text>Registration Certificate (RC)</Text>
-          {!completed?.vehicleRC && !completed?.vehicleRC && (
-            <FontAwesome name="long-arrow-right" size={20} />
-          )}
-          {completed?.vehicleRC && completed?.vehicleRC && (
-            <FontAwesome name="check" size={20} style={{ color: "#20BB20" }} />
-          )}
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ flexDirection: "row", justifyContent: "space-between" }}
-          onPress={() => navigation.navigate("vehicleIns")}
-        >
-          <Text>Vehicle Insurance</Text>
-          {!completed?.vehicleIns && !completed?.vehicleIns && (
-            <FontAwesome name="long-arrow-right" size={20} />
-          )}
-          {completed?.vehicleIns && completed?.vehicleIns && (
-            <FontAwesome name="check" size={20} style={{ color: "#20BB20" }} />
-          )}
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={{ flexDirection: "row", justifyContent: "space-between" }}
-          onPress={() => navigation.navigate("vehiclPermit")}
-        >
-          <Text>Vehicle permit</Text>
-          {!completed?.vehiclePermit && !completed?.vehiclePermit && (
-            <FontAwesome name="long-arrow-right" size={20} />
-          )}
-          {completed?.vehiclePermit && completed?.vehiclePermit && (
-            <FontAwesome name="check" size={20} style={{ color: "#20BB20" }} />
-          )}
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={{ flexDirection: "row", justifyContent: "space-between" }}
-          onPress={() => navigation.navigate("vehiclePoll")}
-        >
-          <Text>Vehicle Fitness (Optional)</Text>
-          {!completed?.vehiclePoll && !completed?.vehiclePoll && (
-            <FontAwesome name="long-arrow-right" size={20} />
-          )}
-          {completed?.vehiclePoll && completed?.vehiclePoll && (
-            <FontAwesome name="check" size={20} style={{ color: "#20BB20" }} />
-          )}
-        </TouchableOpacity>
-      </Accordion>
-      <Accordion title={"Complete Your Profile"} block={mode}>
         <TouchableOpacity
           style={{ flexDirection: "row", justifyContent: "space-between" }}
           onPress={() => navigation.navigate("drivingL")}
@@ -194,6 +227,18 @@ function MoreDetails({ children, style, navigation, route }) {
           onPress={() => navigation.navigate("aadhar")}
         >
           <Text>Aadhar Card</Text>
+          {!completed?.aadhar && !completed?.aadhar && (
+            <FontAwesome name="long-arrow-right" size={20} />
+          )}
+          {completed?.aadhar && completed?.aadhar && (
+            <FontAwesome name="check" size={20} style={{ color: "#20BB20" }} />
+          )}
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ flexDirection: "row", justifyContent: "space-between" }}
+          onPress={() => navigation.navigate("policeVerification")}
+        >
+          <Text>Police Verification</Text>
           {!completed?.aadhar && !completed?.aadhar && (
             <FontAwesome name="long-arrow-right" size={20} />
           )}

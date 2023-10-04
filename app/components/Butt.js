@@ -1,7 +1,16 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
-function Butt({ onTouch, Title, fontWeight, colo, backgroundColor, borderWidth, borderColor, elevation, width }) {
+function Butt({
+  onTouch,
+  Title,
+  colo,
+  backgroundColor,
+  borderWidth,
+  borderColor,
+  elevation,
+  width,
+}) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <TouchableOpacity
@@ -19,7 +28,9 @@ function Butt({ onTouch, Title, fontWeight, colo, backgroundColor, borderWidth, 
           elevation: elevation,
         }}
       >
-        <Text style={{ fontSize: 16, color: colo, fontWeight: "600" }}>{Title}</Text>
+        <Text style={{ fontSize: 16, color: colo, fontWeight: "600" }}>
+          {Title}
+        </Text>
       </TouchableOpacity>
     </View>
   );

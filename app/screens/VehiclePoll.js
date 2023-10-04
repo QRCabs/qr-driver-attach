@@ -5,17 +5,17 @@ import {
   SafeAreaView,
   Platform,
   StatusBar,
-  Image,
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import firebase from "firebase/compat/app";
+import TwoSidedDocs from "../components/TwoSidedDocs";
 
 function VehiclePoll({ children, style, navigation }) {
-  const [image, setImage] = useState(null);
-  const [image2, setImage2] = useState(null);
+  const [frontImage, setFrontImage] = useState(null);
+  const [backImage, setBackImage] = useState(null);
 
   const [imageUri, setImageUri] = useState(null);
   const [imageUri2, setImageUri2] = useState(null);
@@ -25,7 +25,7 @@ function VehiclePoll({ children, style, navigation }) {
     AsyncStorage.getItem("driver_id").then((res) => setDriverId(res));
   }, []);
 
-  const selectPhoto = async () => {
+  const selectPhoto = async (docSide) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -33,11 +33,9 @@ function VehiclePoll({ children, style, navigation }) {
       quality: 1,
     });
     console.log(result);
-    if (!image) {
-      setImage(result.assets[0].uri);
-    } else {
-      setImage2(result.assets[0].uri);
-    }
+    docSide === "front"
+      ? setFrontImage(result.assets[0].uri)
+      : setBackImage(result.assets[0].uri);
     uploadImage(result.assets[0]).uri;
   };
 
@@ -105,90 +103,17 @@ function VehiclePoll({ children, style, navigation }) {
           1. Upload clear picture of document
         </Text>
         <Text style={{ fontSize: 12, fontWeight: "400" }}>
-          2. Photocopies and printouts are not accepted
-        </Text>
-        <Text style={{ fontSize: 12, fontWeight: "400" }}>
-          3. Uploaded files shouldn't be more than 5mb and it should be belong
+          2. Uploaded files shouldn't be more than 5mb and it should be belong
           to JPG,JPEG,PNG,PDF,type only
         </Text>
       </View>
-      <View
-        style={{
-          paddingTop: 15,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {(!image || !image2) && (
-          <TouchableOpacity
-            onPress={() => selectPhoto()}
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              paddingTop: 10,
-            }}
-          >
-            <View
-              style={{
-                padding: 100,
-                borderWidth: 2,
-                borderColor: "#064347",
-                alignItems: "center",
-                borderStyle: "dashed",
-                justifyContent: "center",
-              }}
-            >
-              <Image
-                style={{ height: 64, width: 64 }}
-                source={require("../../assets/uplaod.png")}
-              ></Image>
-              <View style={{ paddingTop: 15 }}>
-                <Text style={{ fontSize: 14, fontWeight: "400" }}>
-                  Click anywhere in this box to upload insurance document
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-        )}
-      </View>
-      <View
-        style={{
-          width: "100%",
-          height: 150,
-          backgroundColor: "white",
-          paddingTop: 20,
-          flexDirection: "row",
-        }}
-      >
-        {image && (
-          <View style={{ height: 100, width: 80, paddingRight: 10 }}>
-            <TouchableOpacity
-              style={styles.removeImageBtn}
-              onPress={() => setImage(null)}
-            >
-              <Text>X</Text>
-            </TouchableOpacity>
-            <Image
-              style={{ height: 83, width: 65 }}
-              source={{ uri: image }}
-            ></Image>
-          </View>
-        )}
-        {image2 && (
-          <View style={{ height: 100, width: 80, paddingRight: 10 }}>
-            <TouchableOpacity
-              style={styles.removeImageBtn}
-              onPress={() => setImage2(null)}
-            >
-              <Text>X</Text>
-            </TouchableOpacity>
-            <Image
-              style={{ height: 83, width: 65 }}
-              source={{ uri: image2 }}
-            ></Image>
-          </View>
-        )}
-      </View>
+      <TwoSidedDocs
+        frontImage={frontImage}
+        backImage={backImage}
+        setFrontImage={setFrontImage}
+        setBackImage={setBackImage}
+        selectPhoto={selectPhoto}
+      />
 
       <View style={{ alignItems: "center", justifyContent: "center" }}>
         <TouchableOpacity
