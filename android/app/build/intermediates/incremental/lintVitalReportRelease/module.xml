@@ -1,0 +1,19 @@
+<lint-module
+    format="1"
+    dir="D:\Project\QRCabs\qr_driver_attach\android\app"
+    name=":app"
+    type="APP"
+    maven="qr_driver_attach:app:"
+    gradle="7.4.2"
+    buildFolder="build"
+    bootClassPath="C:\Users\WorkStation\AppData\Local\Android\Sdk\platforms\android-33\android.jar;C:\Users\WorkStation\AppData\Local\Android\Sdk\build-tools\30.0.3\core-lambda-stubs.jar"
+    javaSourceLevel="11"
+    compileTarget="android-33"
+    neverShrinking="true">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>
