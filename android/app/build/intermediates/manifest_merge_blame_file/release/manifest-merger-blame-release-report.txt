@@ -1,0 +1,166 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.qr_driver_attach"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:3:5-67
+11-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:3:22-64
+12    <uses-permission android:name="android.permission.CAMERA" />
+12-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:4:5-64
+12-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:4:22-62
+13    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+13-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:5:5-80
+13-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:5:22-77
+14    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+14-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:6:5-81
+14-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:6:22-78
+15    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+15-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:7:5-75
+15-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:7:22-73
+16
+17    <uses-feature
+17-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:9:5-85
+18        android:name="android.hardware.camera"
+18-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:9:19-57
+19        android:required="false" />
+19-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:9:58-82
+20    <uses-feature
+20-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:10:5-91
+21        android:name="android.hardware.camera.front"
+21-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:10:19-63
+22        android:required="false" />
+22-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:10:64-88
+23
+24    <queries>
+24-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:7:5-11:15
+25        <intent>
+25-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:8:9-10:18
+26            <action android:name="android.media.action.IMAGE_CAPTURE" />
+26-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:9:13-73
+26-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:9:21-70
+27        </intent>
+28    </queries>
+29
+30    <application
+30-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:12:5-31:19
+31        android:name="com.qr_driver_attach.MainApplication"
+31-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:13:7-38
+32        android:allowBackup="false"
+32-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:17:7-34
+33        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+33-->[androidx.core:core:1.7.0] C:\Users\WorkStation\.gradle\caches\transforms-3\75e4635b66fa4e4e84e71b52579837ce\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
+34        android:icon="@mipmap/ic_launcher"
+34-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:15:7-41
+35        android:label="@string/app_name"
+35-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:14:7-39
+36        android:roundIcon="@mipmap/ic_launcher_round"
+36-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:16:7-52
+37        android:theme="@style/AppTheme" >
+37-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:18:7-38
+38        <activity
+38-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:19:7-30:18
+39            android:name="com.qr_driver_attach.MainActivity"
+39-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:20:9-37
+40            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+40-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:22:9-118
+41            android:exported="true"
+41-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:25:9-32
+42            android:label="@string/app_name"
+42-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:21:9-41
+43            android:launchMode="singleTask"
+43-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:23:9-40
+44            android:windowSoftInputMode="adjustResize" >
+44-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:24:9-51
+45            <intent-filter>
+45-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:26:9-29:25
+46                <action android:name="android.intent.action.MAIN" />
+46-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:27:13-65
+46-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:27:21-62
+47
+48                <category android:name="android.intent.category.LAUNCHER" />
+48-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:28:13-73
+48-->D:\Project\QRCabs\qr_driver_attach\android\app\src\main\AndroidManifest.xml:28:23-70
+49            </intent-filter>
+50        </activity>
+51
+52        <provider
+52-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:16:9-24:20
+53            android:name="com.reactnative.ivpusic.imagepicker.IvpusicImagePickerFileProvider"
+53-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:17:13-94
+54            android:authorities="com.qr_driver_attach.provider"
+54-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:18:13-60
+55            android:exported="false"
+55-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:19:13-37
+56            android:grantUriPermissions="true" >
+56-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:20:13-47
+57            <meta-data
+57-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:21:13-23:78
+58                android:name="android.support.FILE_PROVIDER_PATHS"
+58-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:22:17-67
+59                android:resource="@xml/ivpusic_imagepicker_provider_paths" />
+59-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:23:17-75
+60        </provider>
+61
+62        <activity
+62-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:26:9-28:72
+63            android:name="com.yalantis.ucrop.UCropActivity"
+63-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:27:13-60
+64            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+64-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:28:13-69
+65
+66        <provider
+66-->[:react-native-image-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:8:9-16:20
+67            android:name="com.imagepicker.ImagePickerProvider"
+67-->[:react-native-image-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:9:13-63
+68            android:authorities="com.qr_driver_attach.imagepickerprovider"
+68-->[:react-native-image-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:10:13-71
+69            android:exported="false"
+69-->[:react-native-image-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-37
+70            android:grantUriPermissions="true" >
+70-->[:react-native-image-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:12:13-47
+71            <meta-data
+71-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:21:13-23:78
+72                android:name="android.support.FILE_PROVIDER_PATHS"
+72-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:22:17-67
+73                android:resource="@xml/imagepicker_provider_paths" />
+73-->[:react-native-image-crop-picker] D:\Project\QRCabs\qr_driver_attach\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:23:17-75
+74        </provider>
+75        <provider
+75-->[androidx.emoji2:emoji2:1.0.0] C:\Users\WorkStation\.gradle\caches\transforms-3\223146ef33e3aa619e8b04649706e145\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
+76            android:name="androidx.startup.InitializationProvider"
+76-->[androidx.emoji2:emoji2:1.0.0] C:\Users\WorkStation\.gradle\caches\transforms-3\223146ef33e3aa619e8b04649706e145\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:27:13-67
+77            android:authorities="com.qr_driver_attach.androidx-startup"
+77-->[androidx.emoji2:emoji2:1.0.0] C:\Users\WorkStation\.gradle\caches\transforms-3\223146ef33e3aa619e8b04649706e145\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:28:13-68
+78            android:exported="false" >
+78-->[androidx.emoji2:emoji2:1.0.0] C:\Users\WorkStation\.gradle\caches\transforms-3\223146ef33e3aa619e8b04649706e145\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:29:13-37
+79            <meta-data
+79-->[androidx.emoji2:emoji2:1.0.0] C:\Users\WorkStation\.gradle\caches\transforms-3\223146ef33e3aa619e8b04649706e145\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
+80                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+80-->[androidx.emoji2:emoji2:1.0.0] C:\Users\WorkStation\.gradle\caches\transforms-3\223146ef33e3aa619e8b04649706e145\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:32:17-75
+81                android:value="androidx.startup" />
+81-->[androidx.emoji2:emoji2:1.0.0] C:\Users\WorkStation\.gradle\caches\transforms-3\223146ef33e3aa619e8b04649706e145\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:33:17-49
+82            <meta-data
+82-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\WorkStation\.gradle\caches\transforms-3\d5d05479173d466a6bd0989b3b3e5ef4\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
+83                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+83-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\WorkStation\.gradle\caches\transforms-3\d5d05479173d466a6bd0989b3b3e5ef4\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+84                android:value="androidx.startup" />
+84-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\WorkStation\.gradle\caches\transforms-3\d5d05479173d466a6bd0989b3b3e5ef4\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
+85        </provider>
+86
+87        <meta-data
+87-->[com.facebook.soloader:soloader:0.10.5] C:\Users\WorkStation\.gradle\caches\transforms-3\ec3312a013bd7d8a70466a1977a1dba4\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:12:9-14:37
+88            android:name="com.facebook.soloader.enabled"
+88-->[com.facebook.soloader:soloader:0.10.5] C:\Users\WorkStation\.gradle\caches\transforms-3\ec3312a013bd7d8a70466a1977a1dba4\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:13:13-57
+89            android:value="false" />
+89-->[com.facebook.soloader:soloader:0.10.5] C:\Users\WorkStation\.gradle\caches\transforms-3\ec3312a013bd7d8a70466a1977a1dba4\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:14:13-34
+90    </application>
+91
+92</manifest>
